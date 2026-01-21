@@ -19,15 +19,21 @@ pipeline {
       }
     }
 
-    stage("Angular Build") {
-      steps {
-        sh '''
-          cd frontend/web-ui
-          npm install
-          npm run build --prod
-        '''
-      }
-    }
+stage("Angular Build") {
+  steps {
+    sh '''
+      export HOME=/var/lib/jenkins
+      source $HOME/.bashrc
+
+      node -v
+      npm -v
+
+      cd frontend/web-ui
+      npm install
+      npm run build --prod
+    '''
+  }
+}
 
     stage("Docker Build") {
       steps {
@@ -71,3 +77,4 @@ pipeline {
     }
   }
 }
+
